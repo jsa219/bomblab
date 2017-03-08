@@ -1,0 +1,84 @@
+input -> (rax)
+scanf must receive %d %d
+
+Dump of assembler code for function phase_5:
+=> 0x00000000004012d6 <+0>:		sub    $0x18,%rsp			// 0x7fffffffe220 -> rsp
+   0x00000000004012da <+4>:		mov    %fs:0x28,%rax	
+   0x00000000004012e3 <+13>:	mov    %rax,0x8(%rsp)
+   0x00000000004012e8 <+18>:	xor    %eax,%eax
+   0x00000000004012ea <+20>:	lea    0x4(%rsp),%rcx
+   0x00000000004012ef <+25>:	mov    %rsp,%rdx
+   0x00000000004012f2 <+28>:	mov    $0x402e41,%esi		// Input must be "%d %d"
+   0x00000000004012f7 <+33>:	callq  0x400d50 <__isoc99_sscanf@plt>
+
+	number of digits entered -> rax
+
+	a -> (rsp)
+	b -> rdx
+
+   0x00000000004012fc <+38>:	cmp    $0x1,%eax
+   0x00000000004012ff <+41>:	jg     0x40130c <phase_5+54>
+   0x0000000000401301 <+43>:	mov    $0x0,%eax
+   0x0000000000401306 <+48>:	callq  *0x20309c(%rip)        # 0x6043a8 <explode_bomb>
+
+
+   0x000000000040130c <+54>:	mov    (%rsp),%eax
+
+	a -> rax
+
+   0x000000000040130f <+57>:	and    $0xf,%eax
+   0x0000000000401312 <+60>:	mov    %eax,(%rsp)
+
+	takes right most 4 bits of a and puts that value in rax and in (rsp)
+
+
+   0x0000000000401315 <+63>:	cmp    $0xf,%eax
+   0x0000000000401318 <+66>:	je     0x401349 <phase_5+115>
+
+
+	compares 0xf (0000 1111) to a
+	if right 4 bits of a are all 1s, explode
+
+   0x000000000040131a <+68>:	mov    $0x0,%ecx
+   0x000000000040131f <+73>:	mov    $0x0,%edx
+
+	clears rcx and rcd
+
+	b -> (rsp+4)
+
+   0x0000000000401324 <+78>:	add    $0x1,%edx		// Adds 1 to edx
+	1 -> rdx
+
+   0x0000000000401327 <+81>:	cltq   
+
+	changes memory location stored in rip
+	
+   0x0000000000401329 <+83>:	mov    0x402dc0(,%rax,4),%eax
+   0x0000000000401330 <+90>:	add    %eax,%ecx
+   0x0000000000401332 <+92>:	cmp    $0xf,%eax
+   0x0000000000401335 <+95>:	jne    0x401324 <phase_5+78>
+   0x0000000000401337 <+97>:	movl   $0xf,(%rsp)
+   0x000000000040133e <+104>:	cmp    $0x3,%edx			// Want edx to be 3
+
+   0x0000000000401341 <+107>:	jne    0x401349 <phase_5+115>
+   0x0000000000401343 <+109>:	cmp    0x4(%rsp),%ecx
+   0x0000000000401347 <+113>:	je     0x401354 <phase_5+126>
+   0x0000000000401349 <+115>:	mov    $0x0,%eax
+   0x000000000040134e <+120>:	callq  *0x203054(%rip)        # 0x6043a8 <explode_bomb>
+   0x0000000000401354 <+126>:	mov    0x8(%rsp),%rax
+   0x0000000000401359 <+131>:	xor    %fs:0x28,%rax
+   0x0000000000401362 <+140>:	je     0x401369 <phase_5+147>
+   0x0000000000401364 <+142>:	callq  0x400c80 <__stack_chk_fail@plt>
+   0x0000000000401369 <+147>:	add    $0x18,%rsp
+   0x000000000040136d <+151>:	retq   
+End of assembler dump.
+
+
+
+
+2 35	?
+
+
+
+
+
